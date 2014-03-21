@@ -1,4 +1,5 @@
 GwtGameUiDemo
 =============
 
-Demos ant tutorials for GwtGameUi library.
+Demos and tutorials for GwtGameUi library.
+
