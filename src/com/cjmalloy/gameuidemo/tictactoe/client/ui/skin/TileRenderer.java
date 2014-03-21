@@ -25,18 +25,34 @@ public class TileRenderer
         public void render(Context2d g, double timestamp)
         {
             g.beginPath();
-            g.moveTo(0, ONE_3);
-            g.lineTo(1, ONE_3);
-            g.moveTo(0, TWO_3);
-            g.lineTo(1, TWO_3);
-            g.moveTo(ONE_3, 0);
-            g.lineTo(ONE_3, 1);
-            g.moveTo(TWO_3, 0);
-            g.lineTo(TWO_3, 1);
+            g.rect(0, 0, 1, 1);
+            g.moveTo(0.1, ONE_3);
+            g.lineTo(0.9, ONE_3);
+            g.moveTo(0.1, TWO_3);
+            g.lineTo(0.9, TWO_3);
+            g.moveTo(ONE_3, 0.1);
+            g.lineTo(ONE_3, 0.9);
+            g.moveTo(TWO_3, 0.1);
+            g.lineTo(TWO_3, 0.9);
 
             g.setLineWidth(0.01);
             g.setStrokeStyle("#000");
             g.setLineCap(LineCap.SQUARE);
+            g.stroke();
+        }
+    };
+
+    protected Renderer dropHighlightRenderer = new Renderer()
+    {
+        @Override
+        public void render(Context2d g, double timestamp)
+        {
+            g.beginPath();
+            g.rect(0.2, 0.2, 0.6, 0.6);
+
+            g.setLineWidth(0.1);
+            g.setStrokeStyle("#BBB");
+            g.setLineCap(LineCap.ROUND);
             g.stroke();
         }
     };
@@ -103,17 +119,13 @@ public class TileRenderer
         return gridRenderer;
     }
 
-    public Renderer getORenderer()
-    {
-        return oRenderer;
-    }
-
     public Renderer getRenderer(Piece p)
     {
         switch (p)
         {
         case X: return xRenderer;
         case O: return oRenderer;
+        case HIGHLIGHT: return dropHighlightRenderer;
         }
         return null;
     }
@@ -121,11 +133,6 @@ public class TileRenderer
     public Renderer getResetRenderer()
     {
         return resetRenderer;
-    }
-
-    public Renderer getXRenderer()
-    {
-        return xRenderer;
     }
 
     public static TileRenderer get()

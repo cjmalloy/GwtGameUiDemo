@@ -17,6 +17,7 @@ public class BoardBG extends UiElement
     @Override
     public void render(Context2d g, double timestamp)
     {
+        redrawNeeded = false;
         g.save();
         {
             g.scale(width, height);

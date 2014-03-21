@@ -37,6 +37,7 @@ public class TicTacToeDocument
     public boolean movePiece(Piece p, int x, int y)
     {
         if (turn != p) return false;
+        if (x < 0 || x > 2 || y < 0 || y > 2) return false;
         if (boardModel.grid[x][y] != Piece.NONE) return false;
 
         boardModel.grid[x][y] = p;

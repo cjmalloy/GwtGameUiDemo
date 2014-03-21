@@ -71,6 +71,7 @@ public class BoardModel
     public static enum Piece
     {
         NONE,
+        HIGHLIGHT,
         X,
         O;
     }

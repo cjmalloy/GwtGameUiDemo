@@ -37,6 +37,7 @@ public class ToolButtons extends Panel
         animations.add(xDragButton.getAnimationLayer());
         animations.add(oDragButton.getAnimationLayer());
 
+        resetButton.cache = true;
         resetButton.setButtonSkin(new ResetButtonSkin());
         resetButton.addMouseClickHandler(new MouseClickHandler()
         {
@@ -46,6 +47,9 @@ public class ToolButtons extends Panel
                 onReset();
             }
         });
+
+        xDragButton.cache = true;
+        oDragButton.cache = true;
 
         resize(width, height);
     }
