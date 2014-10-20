@@ -109,4 +109,10 @@
     </pluginManagement>
   </build>
 
+  <repositories>
+    <repository>
+      <id>cjmalloy-repo</id>
+      <url>http://cjmalloy.com/m2/libs-release</url>
+    </repository>
+  </repositories>
 </project>
