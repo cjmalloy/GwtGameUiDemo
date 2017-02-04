@@ -1,11 +1,13 @@
 package com.cjmalloy.gameuidemo.tictactoe.client.controller;
 
-import com.cjmalloy.gameui.client.core.EventDispatcher;
+import com.cjmalloy.gameui.client.event.EventBus;
+import com.cjmalloy.gameuidemo.tictactoe.client.event.EventBusFactory;
+import com.cjmalloy.gameuidemo.tictactoe.client.event.UpdateEvent;
 import com.cjmalloy.gameuidemo.tictactoe.client.model.BoardModel.Piece;
 import com.cjmalloy.gameuidemo.tictactoe.client.model.document.TicTacToeDocument;
 
 
-public class TicTacToeController extends EventDispatcher<TicTacToeDocument>
+public class TicTacToeController
 {
     TicTacToeDocument doc;
 
@@ -28,7 +30,7 @@ public class TicTacToeController extends EventDispatcher<TicTacToeDocument>
 
     public void update()
     {
-        update(doc);
+        EventBusFactory.get().fireEvent(new UpdateEvent(doc));
     }
 
     public void clear()

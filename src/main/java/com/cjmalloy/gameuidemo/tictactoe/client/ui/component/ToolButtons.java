@@ -1,23 +1,28 @@
 package com.cjmalloy.gameuidemo.tictactoe.client.ui.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cjmalloy.gameui.client.component.Button;
 import com.cjmalloy.gameui.client.component.Panel;
 import com.cjmalloy.gameui.client.core.UiElement;
 import com.cjmalloy.gameui.client.event.MouseClickEvent;
 import com.cjmalloy.gameui.client.event.MouseClickHandler;
 import com.cjmalloy.gameuidemo.tictactoe.client.controller.TicTacToeController;
+import com.cjmalloy.gameuidemo.tictactoe.client.event.EventBusFactory;
+import com.cjmalloy.gameuidemo.tictactoe.client.event.UpdateEvent;
 import com.cjmalloy.gameuidemo.tictactoe.client.model.BoardModel.Piece;
 import com.cjmalloy.gameuidemo.tictactoe.client.model.document.TicTacToeDocument;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.skin.ResetButtonSkin;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.core.client.GWT;
+import com.google.web.bindery.event.shared.binder.EventBinder;
+import com.google.web.bindery.event.shared.binder.EventHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ToolButtons extends Panel
 {
+    private final MyEventBinder eventBinder = GWT.create(MyEventBinder.class);
+    interface MyEventBinder extends EventBinder<ToolButtons> {}
 
     private PieceDragButton xDragButton;
     private PieceDragButton oDragButton;
@@ -29,6 +34,7 @@ public class ToolButtons extends Panel
     public ToolButtons(int x, int y, int width, int height)
     {
         super(x, y, width, height);
+        eventBinder.bindEventHandlers(this, EventBusFactory.get());
 
         add(xDragButton = new PieceDragButton(Piece.X));
         add(oDragButton = new PieceDragButton(Piece.O));
@@ -54,6 +60,13 @@ public class ToolButtons extends Panel
         resize(width, height);
     }
 
+    @EventHandler
+    public void update(UpdateEvent event)
+    {
+        xDragButton.setDraggable(event.model.winner == null);
+        oDragButton.setDraggable(event.model.winner == null);
+    }
+
     @Override
     public void resize(int w, int h)
     {
@@ -74,14 +87,6 @@ public class ToolButtons extends Panel
     public void setController(TicTacToeController c)
     {
         this.controller = c;
-        c.addValueChangeHandler(new ValueChangeHandler<TicTacToeDocument>()
-        {
-            @Override
-            public void onValueChange(ValueChangeEvent<TicTacToeDocument> event)
-            {
-                update(event.getValue());
-            }
-        });
     }
 
     protected void onReset()
@@ -91,8 +96,6 @@ public class ToolButtons extends Panel
 
     protected void update(TicTacToeDocument model)
     {
-        xDragButton.setDraggable(model.winner == null);
-        oDragButton.setDraggable(model.winner == null);
     }
 
 }

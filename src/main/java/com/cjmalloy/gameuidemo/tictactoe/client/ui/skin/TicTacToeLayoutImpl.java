@@ -2,13 +2,10 @@ package com.cjmalloy.gameuidemo.tictactoe.client.ui.skin;
 
 import com.cjmalloy.gameui.client.component.Panel;
 import com.cjmalloy.gameuidemo.tictactoe.client.controller.TicTacToeController;
-import com.cjmalloy.gameuidemo.tictactoe.client.model.document.TicTacToeDocument;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.component.Board;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.component.BoardBG;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.component.ToolButtons;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.view.TicTacToe;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
 
 public class TicTacToeLayoutImpl implements TicTacToeLayout
@@ -85,22 +82,8 @@ public class TicTacToeLayoutImpl implements TicTacToeLayout
     public void setController(TicTacToeController c)
     {
         controller = c;
-        c.addValueChangeHandler(new ValueChangeHandler<TicTacToeDocument>()
-        {
-            @Override
-            public void onValueChange(ValueChangeEvent<TicTacToeDocument> event)
-            {
-                update(event.getValue());
-            }
-        });
         board.setController(c);
         toolButtons.setController(c);
-    }
-
-    protected void update(TicTacToeDocument model)
-    {
-        // TODO Auto-generated method stub
-
     }
 
     private BoardBG getBoardBG(int x, int y, int width, int height)

@@ -6,25 +6,23 @@ import com.cjmalloy.gameui.client.event.HasMouseMoveHandlers;
 import com.cjmalloy.gameui.client.event.MouseMoveEvent;
 import com.cjmalloy.gameui.client.event.MouseMoveHandler;
 import com.cjmalloy.gameuidemo.tictactoe.client.controller.TicTacToeController;
-import com.cjmalloy.gameuidemo.tictactoe.client.event.HasPieceDragEndHandlers;
-import com.cjmalloy.gameuidemo.tictactoe.client.event.HasPieceDragMoveHandlers;
-import com.cjmalloy.gameuidemo.tictactoe.client.event.PieceDragEndEvent;
-import com.cjmalloy.gameuidemo.tictactoe.client.event.PieceDragEndHandler;
-import com.cjmalloy.gameuidemo.tictactoe.client.event.PieceDragMoveEvent;
-import com.cjmalloy.gameuidemo.tictactoe.client.event.PieceDragMoveHandler;
+import com.cjmalloy.gameuidemo.tictactoe.client.event.*;
 import com.cjmalloy.gameuidemo.tictactoe.client.model.BoardModel.Piece;
-import com.cjmalloy.gameuidemo.tictactoe.client.model.document.TicTacToeDocument;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.skin.TileRenderer;
 import com.google.gwt.canvas.dom.client.Context2d;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.web.bindery.event.shared.binder.EventBinder;
+import com.google.web.bindery.event.shared.binder.EventHandler;
 
 
 public class Board extends UiElement implements HasPieceDragEndHandlers, PieceDragEndHandler,
                                                 HasPieceDragMoveHandlers, PieceDragMoveHandler,
                                                 HasMouseMoveHandlers, MouseMoveHandler
 {
+    private final MyEventBinder eventBinder = GWT.create(MyEventBinder.class);
+    interface MyEventBinder extends EventBinder<Board> {}
+
     private final TileRenderer skin = TileRenderer.get();
 
     private TicTacToeController controller;
@@ -34,10 +32,18 @@ public class Board extends UiElement implements HasPieceDragEndHandlers, PieceDr
     public Board(int x, int y, int width, int height)
     {
         super(x, y, width, height);
+        eventBinder.bindEventHandlers(this, EventBusFactory.get());
 
         addPieceDragEndHandler(this);
         addPieceDragMoveHandler(this);
         addMouseMoveHandler(this);
+    }
+
+    @EventHandler
+    public void update(UpdateEvent event)
+    {
+        grid = event.model.boardModel.grid;
+        redrawNeeded();
     }
 
     @Override
@@ -127,20 +133,6 @@ public class Board extends UiElement implements HasPieceDragEndHandlers, PieceDr
     public void setController(TicTacToeController c)
     {
         this.controller = c;
-        c.addValueChangeHandler(new ValueChangeHandler<TicTacToeDocument>()
-        {
-            @Override
-            public void onValueChange(ValueChangeEvent<TicTacToeDocument> event)
-            {
-                update(event.getValue());
-            }
-        });
-    }
-
-    protected void update(TicTacToeDocument model)
-    {
-        grid = model.boardModel.grid;
-        redrawNeeded();
     }
 
     private void removeHighlight()
