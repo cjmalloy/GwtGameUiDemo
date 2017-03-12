@@ -7,24 +7,21 @@ import com.cjmalloy.gameuidemo.tictactoe.client.model.BoardModel.Piece;
 import com.google.gwt.canvas.dom.client.Context2d;
 
 
-public class PieceDragButtonSkin extends DragButtonSkin
-{
-    public PieceDragButtonSkin(Piece p)
-    {
-        final Renderer r = TileRenderer.get().getRenderer(p);
-        states.put(DragButtonState.UP, new Renderer()
+public class PieceDragButtonSkin extends DragButtonSkin {
+
+  public PieceDragButtonSkin(Piece p) {
+    final Renderer r = TileRenderer.get().getRenderer(p);
+    states.put(DragButtonState.UP, new Renderer() {
+      @Override
+      public void render(Context2d g, double timestamp) {
+        g.save();
         {
-            @Override
-            public void render(Context2d g, double timestamp)
-            {
-                g.save();
-                {
-                    g.scale(width, height);
-                    r.render(g, timestamp);
-                }
-                g.restore();
-            }
-        });
-    }
+          g.scale(width, height);
+          r.render(g, timestamp);
+        }
+        g.restore();
+      }
+    });
+  }
 
 }

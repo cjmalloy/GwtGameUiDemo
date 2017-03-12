@@ -6,25 +6,31 @@ import com.cjmalloy.gameuidemo.tictactoe.client.ui.view.TicTacToe;
 import com.google.gwt.core.client.GWT;
 
 
-public interface TicTacToeLayout
-{
-    Panel getBGLayer();
-    Panel getFloatingLayer();
-    int getMinHeight();
-    int getMinWidth();
-    Panel getUILayer();
-    void init(TicTacToe view, int width, int height);
-    void resize(int w, int h);
-    void setController(TicTacToeController c);
+public interface TicTacToeLayout {
 
-    public static class TicTacToeLayoutFactory
-    {
-        public static TicTacToeLayout get(TicTacToe view, int width, int height)
-        {
-            TicTacToeLayout impl = GWT.create(TicTacToeLayout.class);
-            impl.init(view, width, height);
-            return impl;
-        }
+  Panel getBgLayer();
+
+  Panel getFloatingLayer();
+
+  int getMinHeight();
+
+  int getMinWidth();
+
+  Panel getUiLayer();
+
+  void init(TicTacToe view, int width, int height);
+
+  void resize(int w, int h);
+
+  void setController(TicTacToeController c);
+
+  public static class TicTacToeLayoutFactory {
+
+    public static TicTacToeLayout get(TicTacToe view, int width, int height) {
+      TicTacToeLayout impl = GWT.create(TicTacToeLayout.class);
+      impl.init(view, width, height);
+      return impl;
     }
+  }
 
 }

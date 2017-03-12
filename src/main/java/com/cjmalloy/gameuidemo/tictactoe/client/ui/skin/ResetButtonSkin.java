@@ -6,24 +6,20 @@ import com.cjmalloy.gameui.client.core.Renderer;
 import com.google.gwt.canvas.dom.client.Context2d;
 
 
-public class ResetButtonSkin extends ButtonSkin
-{
+public class ResetButtonSkin extends ButtonSkin {
 
-    public ResetButtonSkin()
-    {
-        final Renderer r = TileRenderer.get().getResetRenderer();
-        states.put(ButtonState.UP, new Renderer()
+  public ResetButtonSkin() {
+    final Renderer r = TileRenderer.get().getResetRenderer();
+    states.put(ButtonState.UP, new Renderer() {
+      @Override
+      public void render(Context2d g, double timestamp) {
+        g.save();
         {
-            @Override
-            public void render(Context2d g, double timestamp)
-            {
-                g.save();
-                {
-                    g.scale(width, height);
-                    r.render(g, timestamp);
-                }
-                g.restore();
-            }
-        });
-    }
+          g.scale(width, height);
+          r.render(g, timestamp);
+        }
+        g.restore();
+      }
+    });
+  }
 }

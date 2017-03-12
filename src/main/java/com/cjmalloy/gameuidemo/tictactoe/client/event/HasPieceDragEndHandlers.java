@@ -3,8 +3,7 @@ package com.cjmalloy.gameuidemo.tictactoe.client.event;
 import com.google.gwt.event.shared.HandlerRegistration;
 
 
-public interface HasPieceDragEndHandlers
-{
+public interface HasPieceDragEndHandlers {
 
-    HandlerRegistration addPieceDragEndHandler(PieceDragEndHandler handler);
+  HandlerRegistration addPieceDragEndHandler(PieceDragEndHandler handler);
 }

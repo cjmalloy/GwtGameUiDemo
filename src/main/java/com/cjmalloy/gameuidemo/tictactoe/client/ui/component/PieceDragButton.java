@@ -9,34 +9,30 @@ import com.cjmalloy.gameuidemo.tictactoe.client.model.BoardModel.Piece;
 import com.cjmalloy.gameuidemo.tictactoe.client.ui.skin.PieceDragButtonSkin;
 
 
-public class PieceDragButton extends DragButton
-{
+public class PieceDragButton extends DragButton {
 
-    public Piece piece = null;
+  public Piece piece = null;
 
-    public PieceDragButton(Piece p)
-    {
-        this.piece = p;
-        setButtonSkin(new PieceDragButtonSkin(p));
-    }
+  public PieceDragButton(Piece p) {
+    this.piece = p;
+    setButtonSkin(new PieceDragButtonSkin(p));
+  }
 
-    protected Event getDragEndEvent(MouseEvent event)
-    {
-        PieceDragEndEvent e = new PieceDragEndEvent();
-        e.x = event.x;
-        e.y = event.y;
-        e.dragSource = this;
-        e.piece = piece;
-        return e;
-    }
+  protected Event getDragEndEvent(MouseEvent event) {
+    PieceDragEndEvent e = new PieceDragEndEvent();
+    e.x = event.x;
+    e.y = event.y;
+    e.dragSource = this;
+    e.piece = piece;
+    return e;
+  }
 
-    protected Event getDragMoveEvent(MouseEvent event)
-    {
-        PieceDragMoveEvent e = new PieceDragMoveEvent();
-        e.x = event.x;
-        e.y = event.y;
-        e.dragSource = this;
-        e.piece = piece;
-        return e;
-    }
+  protected Event getDragMoveEvent(MouseEvent event) {
+    PieceDragMoveEvent e = new PieceDragMoveEvent();
+    e.x = event.x;
+    e.y = event.y;
+    e.dragSource = this;
+    e.piece = piece;
+    return e;
+  }
 }

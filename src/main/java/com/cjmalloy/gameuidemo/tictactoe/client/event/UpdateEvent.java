@@ -8,10 +8,9 @@ import com.google.web.bindery.event.shared.binder.GenericEvent;
  */
 public class UpdateEvent extends GenericEvent {
 
-    public final TicTacToeDocument model;
+  public final TicTacToeDocument model;
 
-    public UpdateEvent(TicTacToeDocument model)
-    {
-        this.model = model;
-    }
+  public UpdateEvent(TicTacToeDocument model) {
+    this.model = model;
+  }
 }

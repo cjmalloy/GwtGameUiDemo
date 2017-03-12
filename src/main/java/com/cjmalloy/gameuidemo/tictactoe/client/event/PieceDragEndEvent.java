@@ -1,42 +1,35 @@
 package com.cjmalloy.gameuidemo.tictactoe.client.event;
 
-import com.cjmalloy.gameui.client.event.Event;
-import com.cjmalloy.gameui.client.event.EventBus;
-import com.cjmalloy.gameui.client.event.EventHandler;
-import com.cjmalloy.gameui.client.event.EventType;
+import com.cjmalloy.gameui.client.event.*;
 
 
-public class PieceDragEndEvent extends PieceDragEvent
-{
-    public static final EventType<PieceDragEndEvent> TYPE = new EventType<PieceDragEndEvent>()
-    {
-        @Override
-        public PieceDragEndEvent createEvent()
-        {
-            return new PieceDragEndEvent();
-        }
+public class PieceDragEndEvent extends PieceDragEvent {
 
-        @Override
-        public boolean equals(Event e)
-        {
-            return e instanceof PieceDragEndEvent;
-        }
-    };
+  public static final EventType<PieceDragEndEvent> TYPE = new EventType<PieceDragEndEvent>() {
+    @Override
+    public PieceDragEndEvent createEvent() {
+      return new PieceDragEndEvent();
+    }
 
     @Override
-    public void callHandler(EventHandler handler)
-    {
-        if (!(handler instanceof PieceDragEndHandler)) { throw new InvalidEventHandlerError(); }
+    public boolean equals(Event e) {
+      return e instanceof PieceDragEndEvent;
+    }
+  };
 
-        if (EventBus.get().getCapture() == source || containsPoint())
-        {
-            PieceDragEndHandler h = (PieceDragEndHandler) handler;
-            h.onDragEnd(this);
-        }
+  @Override
+  public void callHandler(EventHandler handler) {
+    if (!(handler instanceof PieceDragEndHandler)) {
+      throw new InvalidEventHandlerError();
     }
 
-    public EventType<? extends Event> getType()
-    {
-        return TYPE;
+    if (EventBus.get().getCapture() == source || containsPoint()) {
+      PieceDragEndHandler h = (PieceDragEndHandler) handler;
+      h.onDragEnd(this);
     }
+  }
+
+  public EventType<? extends Event> getType() {
+    return TYPE;
+  }
 }
